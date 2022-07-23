@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -9,10 +10,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="hero container max-w-screen-lg mx-auto  flex bg-[#9fcdff]">
-        <img className='mx-auto' src="/home.jpg" alt="dfghjk" />
 
+      <div className="container flex  max-w-screen-md mx-auto ">
+        <Image width={750} height={400} className="" src="/home.jpg" alt="dfghjk" />
       </div>
+
 
       <section className="text-gray-600 pt-8 body-font">
         <div className="container px-5 mx-auto">
