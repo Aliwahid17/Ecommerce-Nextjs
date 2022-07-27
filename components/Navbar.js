@@ -51,7 +51,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             {/* SideCart Icons */}
 
             <div className=" cursor-pointer cart absolute right-0 mx-5 flex">
-                <Link href={"/login"}><RiAccountPinCircleFill className=' text-xl top-2 md:text-2xl mx-3' /></Link>
+                <Link href={"/login"}><a><RiAccountPinCircleFill className=' text-xl top-2 md:text-2xl mx-3' /></a></Link>
                 <ImCart onClick={toggleCart} className=' text-xl top-2 md:text-2xl' />
             </div>
 
