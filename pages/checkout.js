@@ -77,7 +77,7 @@ const Checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
             {Object.keys(cart).map((k) => {
               return <li key={k}>
                 <div className="item flex my-5 ">
-                  <div className=' font-semibold mr-8'>{cart[k].name}</div>
+                  <div className=' font-semibold mr-8'>{cart[k].name}({cart[k].size}/{cart[k].variant})</div>
                   <div className='flex items-center justify-center w-1/3 font-semibold text-lg  ml-12'>
                     <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].variant) }} className='cursor-pointer text-blue-600' />
                     <span className="mx-2 text-sm ">
@@ -94,9 +94,9 @@ const Checkout = ({ cart, subTotal, addToCart, removeFromCart }) => {
           <span className="font-semibold">Subtotal: ₹{subTotal}</span>
 
         </div>
-          <div className="mr-64">
-            <Link href={'/checkout'}><button className="flex mx-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsBagCheck className='m-1' />Pay ₹{subTotal}</button></Link>
-          </div>
+        <div className="mr-[21rem]">
+          <Link href={'/checkout'}><button className="flex mx-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsBagCheck className='m-1' />Pay ₹{subTotal}</button></Link>
+        </div>
 
 
 
