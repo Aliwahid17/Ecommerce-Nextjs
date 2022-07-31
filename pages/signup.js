@@ -1,10 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
+
+  const [name, setName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const handleChange = (e) => {
+    if (e.target.name == "name") {
+      setName(e.target.value)
+    }
+    else if (e.target.name == "email") {
+      setEmail(e.target.value)
+    }
+    else if (e.target.name == "password") {
+      setPassword(e.target.value)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = { name, email, password }
+    const res = await fetch("http://localhost:3000/api/signup", {
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    })
+    const result = await res.json();
+    console.log(result);
+    setEmail('')
+    setName('')
+    setPassword('')
+    toast.success('Your account has been created successfully! 😀🎉🎉', {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+
   return (
     <>
-
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <section className="h-screen">
         <div className="px-6 h-full text-gray-800">
           <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
@@ -12,7 +67,7 @@ const Signup = () => {
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" className="w-full" alt="Sample image" />
             </div>
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-              <form>
+              <form onSubmit={handleSubmit} method="POST">
                 <div className="flex flex-row items-center justify-center lg:justify-start">
                   <p className="text-lg mb-0 mr-4">Sign Up with</p>
                   <button type="button" data-mdb-ripple="true" data-mdb-ripple-color="light" className="inline-block p-3 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mx-1" >
@@ -47,28 +102,28 @@ const Signup = () => {
                 {/* <!-- Name input --> */}
 
                 <div className="relative z-0 mb-6 w-full group">
-                  <input type="text" name="name" id="name" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="" />
+                  <input value={name} onChange={handleChange} type="text" name="name" id="name" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                   <label htmlFor="name" className=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300  transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-1 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Full Name</label>
                 </div>
 
                 {/* <!-- Email input --> */}
 
                 <div className="relative z-0 mb-6 w-full group">
-                  <input type="email" name="email" id="email" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="" />
+                  <input value={email} onChange={handleChange} type="email" name="email" id="email" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                   <label htmlFor="email" className=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300  transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-1 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Email address</label>
                 </div>
 
                 {/* <!-- Password input --> */}
 
                 <div className="relative z-0 mb-6 w-full group">
-                  <input type="password" name="password" id="password" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="" />
+                  <input value={password} onChange={handleChange} type="password" name="password" id="password" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                   <label htmlFor="password" className=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300  transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-1 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Password</label>
                 </div>
 
-                
+
 
                 <div className="text-center lg:text-left">
-                  <button type="button" className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" >
+                  <button type="submit" className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" >
                     Sign Up
                   </button>
                   <p className="text-sm font-semibold mt-2 pt-1 mb-0">
