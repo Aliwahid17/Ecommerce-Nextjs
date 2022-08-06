@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ImCart } from 'react-icons/Im';
@@ -8,7 +8,9 @@ import { RiAccountPinCircleFill } from 'react-icons/Ri';
 import { AiFillCloseCircle, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/Ai';
 import { useRef } from 'react';
 
-const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+const Navbar = ({ Logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+
+    const [dropdown, setDropdown] = useState(false)
 
     // function to close cart icon
 
@@ -50,9 +52,23 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
             {/* SideCart Icons */}
 
-            <div className=" cursor-pointer cart absolute right-0 mx-5 flex">
-                <Link href={"/login"}><a><RiAccountPinCircleFill className=' text-xl top-2 md:text-2xl mx-3' /></a></Link>
-                <ImCart onClick={toggleCart} className=' text-xl top-2 md:text-2xl' />
+            <div className=" cursor-pointer cart items-center absolute right-0  mx-5 flex">
+                <a onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }}>
+                    {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className="absolute right-8 bg-blue-300 top-6 py-4 rounded-md px-5 w-32">
+                        <ul>
+                            <Link href={'/myaccount'}><a><li className="py-1 hover:text-blue-700 text-sm">My Account</li></a></Link>
+                            <Link href={'/orders'}><a><li className="py-1 hover:text-blue-700 text-sm">Orders</li></a></Link>
+                            <li onClick={Logout} className="py-1 hover:text-blue-700 text-sm">Log Out</li>
+                        </ul>
+                    </div>}
+                    {user.value && <RiAccountPinCircleFill className=' text-xl top-2 md:text-2xl mx-3' />}
+                </a>
+                {!user.value && <Link href={"/login"}>
+                    <a>
+                        <button className='bg-blue-500 px-2 py-1 rounded-md text-sm mx-2 text-white'>Log In</button>
+                    </a>
+                </Link>}
+                <ImCart onClick={toggleCart} className=' text-xl items-center top-2 md:text-2xl' />
             </div>
 
             {/* Shopping Cart menu */}
