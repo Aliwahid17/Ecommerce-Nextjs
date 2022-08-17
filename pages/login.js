@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import Router from 'next/dist/server/router';
 import { useRouter } from 'next/router';
+
 
 const Login = () => {
 
@@ -62,6 +62,13 @@ const Login = () => {
       });
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      router.push('/')
+    }
+  }, [])
+
 
   return (
     <>

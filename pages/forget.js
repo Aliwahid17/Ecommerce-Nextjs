@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Forget = () => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      router.push('/')
+    }
+  }, [])
+
   return (
     <>
 
@@ -45,7 +55,7 @@ const Forget = () => {
                 </div>
 
                 {/* <!-- Email input --> */}
-               
+
                 <div className="relative z-0 mb-6 w-full group">
                   <input type="phone" name="pincode" id="pincode" className="block py-2 px-4 w-full text-xl rounded-md text-gray-900 bg-transparent border-2 border-b-2 border-gray-300 appearance-none  dark:text-black pl-2 dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required="" />
                   <label htmlFor="pincode" className=" peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300  transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-1 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-2">Email address</label>
@@ -54,7 +64,7 @@ const Forget = () => {
 
                 <div className="text-center lg:text-left">
                   <button type="button" className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" >
-                  Continue
+                    Continue
                   </button>
                   <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                     Don't have an account?
